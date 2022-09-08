@@ -1,26 +1,24 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
-import { Observable, ReplaySubject } from "rxjs";
+import { Observable, of, ReplaySubject, tap } from "rxjs";
+import { AuthService } from "../auth/auth.service";
 import { ResourceService } from "../resource.service";
 import { User } from "./user.types";
 
 @Injectable({
     providedIn: 'root'
 })
-export class UserService extends ResourceService<User>{
+export class UserService {
 
     private _user: ReplaySubject<User> = new ReplaySubject<User>(1);
 
     /**
      * Constructor
      */
-    constructor(private _httpClient: HttpClient) {
-        super(_httpClient);
+    constructor(private _authService: AuthService) {
     }
 
-    getResourceUrl(): string {
-        return "/user";
-    }
+    
 
     /**
      * Setter & getter for user
@@ -41,6 +39,6 @@ export class UserService extends ResourceService<User>{
      */
     get(): Observable<User> {
         // TODO call /me
-        throw new Error("Not yet implemented");
+        return this._user.asObservable();
     }
 }

@@ -1,9 +1,11 @@
 import { NgModule, Optional, SkipSelf } from '@angular/core';
+import { SharedModule } from 'src/shared/shared.module';
 import { AuthModule } from './auth/auth.module';
 
 @NgModule({
     imports: [
         AuthModule,
+        SharedModule,
     ]
 })
 export class CoreModule {

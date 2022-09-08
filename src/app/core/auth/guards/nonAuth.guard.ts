@@ -62,6 +62,7 @@ export class NoAuthGuard implements CanActivate, CanActivateChild, CanLoad {
      */
     private _check(): Observable<boolean> {
         // Check the authentication status
+        console.log('ı am here nonAuthGuard')
         return this._authService.check()
             .pipe(
                 switchMap((authenticated) => {

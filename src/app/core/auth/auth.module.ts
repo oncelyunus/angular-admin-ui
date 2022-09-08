@@ -5,7 +5,7 @@ import { AuthInterceptor } from './auth.interceptor';
 
 @NgModule({
     imports: [
-        HttpClientModule
+        HttpClientModule,
     ],
     providers: [
         AuthService,

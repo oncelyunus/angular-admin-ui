@@ -37,6 +37,7 @@ export class AuthGuard implements CanActivate, CanActivateChild, CanLoad {
      */
     private _check(redirectURL: string): Observable<boolean> {
         // Check the authentication status
+        console.log('ı am here AuthGuard', redirectURL)
         return this._authService.check()
             .pipe(
                 switchMap((authenticated) => {
@@ -45,12 +46,13 @@ export class AuthGuard implements CanActivate, CanActivateChild, CanLoad {
                     if (!authenticated) {
                         // Redirect to the sign-in page
                         this._router.navigate(['sign-in'], { queryParams: { redirectURL } });
-
+                        console.log('AuthGuard false');
                         // Prevent the access
                         return of(false);
                     }
 
                     // Allow the access
+                    console.log('AuthGuard true');
                     return of(true);
                 })
             );

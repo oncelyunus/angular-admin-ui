@@ -34,13 +34,13 @@ export class AuthService extends ResourceService<any>{
 
     signIn(credentials: { email: string, password: string }): Observable<any> {
         // Throw error, if the user is already logged in
+        console.log('burada', credentials)
         if (this._authenticated) {
             return throwError('User is already logged in.');
         }
 
-        this.post(this.loginURL, credentials).pipe(
+        return this.post(this.loginURL, credentials).pipe(
             switchMap((response: any) => {
-
                 // Store the access token in the local storage
                 this.accessToken = response.accessToken;
 
@@ -53,7 +53,7 @@ export class AuthService extends ResourceService<any>{
                 // Return a new observable with the response
                 return of(response);
             })
-        )
+        );
     }
 
     me(): Observable<any> {
@@ -65,7 +65,7 @@ export class AuthService extends ResourceService<any>{
                 of(false)
             ),
             switchMap((response: any) => {
-
+                console.log('me response', response);
                 if (response.accessToken) {
                     this.accessToken = response.accessToken;
                 }

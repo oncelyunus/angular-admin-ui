@@ -1,6 +1,6 @@
 import { HttpClient, HttpErrorResponse } from "@angular/common/http";
 import { Injectable } from "@angular/core";
-import { throwError } from "rxjs";
+import { Observable, throwError } from "rxjs";
 import { catchError } from 'rxjs/operators';
 import { environment } from "src/environments/environment";
 
@@ -21,8 +21,9 @@ export abstract class ResourceService<T> {
         return json;
     }
 
-    post(url: string, resource: T) {
-        return this.httpClient.post(`/${this.APIUrl + url}`, this.toServerModel(resource))
+    post(url: string, resource: T): Observable<any> {
+        const beURL = `${this.APIUrl + url}`;
+        return this.httpClient.post(beURL, this.toServerModel(resource))
             .pipe(
                 catchError(this.handleError)
             );
